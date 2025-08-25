@@ -35,8 +35,16 @@ class Parser
         return array_reverse(static::$parsed);
     }
 
+    /**
+     * Extracts the date from a filename or returns the filename itself if "show_all_logs" is enabled.
+     */
     public static function extractDate(string $string): string
     {
+        if (config('filament-log-viewer.show_all_logs')) {
+            // For “all logs”, just return the filename without path
+            return basename($string);
+        }
+
         $pattern = self::DATE_PATTERN;
 
         return preg_replace("/.*({$pattern}).*/", '$1', $string);

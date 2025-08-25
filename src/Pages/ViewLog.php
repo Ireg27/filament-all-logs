@@ -6,6 +6,7 @@ namespace Boquizo\FilamentLogViewer\Pages;
 
 use BackedEnum;
 use Boquizo\FilamentLogViewer\Actions\BackAction;
+use Boquizo\FilamentLogViewer\Actions\ClearLogsAction;
 use Boquizo\FilamentLogViewer\Actions\DeleteAction;
 use Boquizo\FilamentLogViewer\Actions\DownloadAction;
 use Boquizo\FilamentLogViewer\FilamentLogViewerPlugin;
@@ -59,7 +60,7 @@ class ViewLog extends Page implements HasTable
     public function getHeaderActions(): array
     {
         return [
-            DeleteAction::make(withTooltip: true),
+            ClearLogsAction::make(withTooltip: true),
             DownloadAction::make(withTooltip: true),
             BackAction::make(),
         ];
@@ -140,8 +141,16 @@ class ViewLog extends Page implements HasTable
 
     public function getTitle(): string
     {
+        $dateOrFilename = $this->record->date ?? null;
+
+        try {
+            $formatted = $dateOrFilename ? Carbon::parse($dateOrFilename)->isoFormat('LL') : $dateOrFilename;
+        } catch (\Exception $e) {
+            $formatted = $dateOrFilename; // fallback to filename
+        }
+
         return __('filament-log-viewer::log.show.title', [
-            'log' => Carbon::parse($this->record->date ?? null)->isoFormat('LL'),
+            'log' => $formatted,
         ]);
     }
 }

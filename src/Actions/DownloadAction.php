@@ -37,9 +37,17 @@ class DownloadAction
         ViewLog|ListLogs $livewire,
     ): string {
         $model = $action->getRecord() ?? $livewire->record;
+        $dateOrFile = $model?->date ?? $model['date'] ?? null;
+
+        // Try to parse as Carbon date; fallback to filename
+        try {
+            $formatted = $dateOrFile ? Carbon::parse($dateOrFile)->isoFormat('LL') : '';
+        } catch (\Exception $e) {
+            $formatted = $dateOrFile;
+        }
 
         return __('filament-log-viewer::log.table.actions.download.label', [
-            'log' => Carbon::parse($model?->date ?? $model['date'])->isoFormat('LL'),
+            'log' => $formatted,
         ]);
     }
 
@@ -48,7 +56,8 @@ class DownloadAction
         ViewLog|ListLogs $livewire,
     ): BinaryFileResponse {
         $model = $action->getRecord() ?? $livewire->record;
+        $dateOrFile = $model?->date ?? $model['date'] ?? null;
 
-        return FilamentLogViewerPlugin::get()->downloadLog($model?->date ?? $model['date']);
+        return FilamentLogViewerPlugin::get()->downloadLog($dateOrFile);
     }
 }

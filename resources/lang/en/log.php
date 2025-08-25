@@ -45,6 +45,15 @@ return [
                     'label' => 'Delete selected logs',
                 ],
             ],
+            'clear' => [
+                'label' => 'Clear log',
+                'confirm' => 'Are you sure you want to clear the log?',
+                'success' => 'Log cleared successfully',
+                'error' => 'Error clearing the log',
+                'bulk' => [
+                    'label' => 'Clear selected logs',
+                ],
+            ],
             'close' => [
                 'label' => 'Back',
             ],

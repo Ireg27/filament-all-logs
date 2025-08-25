@@ -32,7 +32,6 @@ class DeleteAction
             ->icon('fas-trash')
             ->requiresConfirmation()
             ->action(self::getAction(...))
-            // I have to set this manually because the default is not working
             ->successRedirectUrl(ListLogs::getUrl());
 
         if ($withTooltip) {
@@ -48,9 +47,16 @@ class DeleteAction
         ViewLog|ListLogs $livewire,
     ): string {
         $model = $action->getRecord() ?? $livewire->record;
+        $dateOrFile = $model?->date ?? $model['date'] ?? null;
+
+        try {
+            $formatted = $dateOrFile ? Carbon::parse($dateOrFile)->isoFormat('LL') : '';
+        } catch (\Exception $e) {
+            $formatted = $dateOrFile; // fallback to filename
+        }
 
         return __('filament-log-viewer::log.table.actions.delete.label', [
-            'log' => Carbon::parse($model?->date ?? $model['date'])->isoFormat('LL'),
+            'log' => $formatted,
         ]);
     }
 
@@ -60,8 +66,9 @@ class DeleteAction
     ): void {
         try {
             $model = $action->getRecord() ?? $livewire->record;
+            $dateOrFile = $model?->date ?? $model['date'] ?? null;
 
-            FilamentLogViewerPlugin::get()->deleteLog($model?->date ?? $model['date']);
+            FilamentLogViewerPlugin::get()->deleteLog($dateOrFile);
         } catch (Exception) {
             $action->failure();
         }

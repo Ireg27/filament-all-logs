@@ -44,9 +44,14 @@ class ExtractDatesUseCase
     private function files(): array
     {
         $storagePath = Config::string('filament-log-viewer.storage_path');
+        $showAll = Config::get('filament-log-viewer.show_all_logs', false);
+
+        $pattern = $showAll
+            ? '*' . Config::string('filament-log-viewer.pattern.extension')
+            : $this->pattern();
 
         $files = glob(
-            $storagePath.DIRECTORY_SEPARATOR.$this->pattern(),
+            $storagePath . DIRECTORY_SEPARATOR . $pattern,
             defined('GLOB_BRACE') ? GLOB_BRACE : 0
         );
 
