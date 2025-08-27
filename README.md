@@ -4,6 +4,15 @@
 [![License](https://poser.pugx.org/gboquizosanchez/filament-log-viewer/license.svg)](https://packagist.org/packages/gboquizosanchez/filament-log-viewer)
 [![Downloads](https://poser.pugx.org/gboquizosanchez/filament-log-viewer/d/total.svg)](https://packagist.org/packages/gboquizosanchez/filament-log-viewer)
 
+## Changelog
+### v2.1.0
+- Removed deleting logs
+- Added bulk log clearing action
+- Updated ViewLog and ClearLog actions for selective clearing
+- Support for displaying all logs without prefix/extension restrictions (need to add 'show_all_logs' => true in config)
+- Updated Blade templates with custom CSS styling
+- Minor fixes and improvements
+
 ## Summary
 
 This package allows you to manage and keep track of each one of your log files in Filament panels.
