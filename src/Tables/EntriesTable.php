@@ -39,9 +39,9 @@ class EntriesTable
             )
             ->columns([
                 EnvColumn::make(),
-                DateColumn::make('datetime'),
+                DateColumn::make('datetime')->grow(false),
                 LevelColumn::make(),
-                MessageColumn::make(),
+                MessageColumn::make()->grow(),
                 StackColumn::make(),
                 ContextColumn::make(),
             ])

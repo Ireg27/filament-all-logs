@@ -54,6 +54,10 @@ return [
                     'label' => 'Clear selected logs',
                 ],
             ],
+            'clear_bulk' => [
+                'label' => 'Clear all logs',
+                'confirm' => 'Are you sure you want to clear all logs?',
+            ],
             'close' => [
                 'label' => 'Back',
             ],
