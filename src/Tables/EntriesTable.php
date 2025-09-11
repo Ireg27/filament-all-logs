@@ -87,7 +87,9 @@ class EntriesTable
                     SORT_REGULAR,
                     $sortDirection === 'desc',
                 ),
-            )
+                fn (Collection $collection) => config('filament-log-viewer.reverse')
+                    ? $collection->reverse()->values()
+                    : $collection->values())
             ->when(
                 filled($search),
                 fn (Collection $collection) => $collection->filter(

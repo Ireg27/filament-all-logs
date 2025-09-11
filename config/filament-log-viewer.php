@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 return [
 
+    'show_all_logs' => false,
+
+    'reverse' => false,
     /* -----------------------------------------------------------------
     | Resource configuration
     | -----------------------------------------------------------------
