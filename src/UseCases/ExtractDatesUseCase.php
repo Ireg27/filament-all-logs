@@ -55,12 +55,23 @@ class ExtractDatesUseCase
             defined('GLOB_BRACE') ? GLOB_BRACE : 0
         );
 
-        return array_reverse(
-            array_filter(
-                array_map('realpath', $files),
-            ),
-        );
+        $files = array_map('realpath', $files);
+
+        $ignore = Config::get('filament-log-viewer.ignore_files', []);
+
+        $files = array_filter($files, function ($file) use ($ignore) {
+            $basename = basename($file);
+            foreach ($ignore as $word) {
+                if (str_contains($basename, $word)) {
+                    return false;
+                }
+            }
+            return true;
+        });
+
+        return array_reverse($files);
     }
+
 
     private function pattern(): string
     {

@@ -5,6 +5,13 @@
 [![Downloads](https://poser.pugx.org/gboquizosanchez/filament-log-viewer/d/total.svg)](https://packagist.org/packages/gboquizosanchez/filament-log-viewer)
 
 ## Changelog
+
+### v2.1.2
+- Added `ignore_files` in config file, in case when we display all logs, sometimes we don't want to show for example `worker_XX.log`, so we can add the word `worker` on the array
+
+### v2.1.1
+- Added `reverse` in config file since ordering by date doesn't always work since some logs could be on the same time
+
 ### v2.1.0
 - Removed deleting logs
 - Added bulk log clearing action
