@@ -16,8 +16,7 @@ class StackTextEntry
             ->fontFamily(FontFamily::Mono)
             ->html()
             ->extraAttributes([
-                'class' => 'overflow-auto',
-                'style' => 'max-height: 35rem;',
+                'class' => 'overflow-y-auto whitespace-pre-wrap font-mono text-sm p-4 bg-gray-900 text-gray-100 rounded-lg',
             ])
             ->hidden(self::getHidden(...))
             ->formatStateUsing(self::getStateUsing(...));
